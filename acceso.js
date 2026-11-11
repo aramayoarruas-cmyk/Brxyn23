@@ -11,8 +11,8 @@
 // =====================================================================
 
 const CLAVES = {
-  propietario: "67854c883721323335fd44bc42084bdc4fdd7910c18125357020222885502dc2",
-  usuario: "afc6df04022c956dd507502da484f6dcb1b1f413ba60b02f87609254ef8a04b5"
+  propietario: "6ed11a3284bb000039d0f7f3c8e477358bae0351a77d6beec06e3c0a89f7976a",
+  usuario: "3f2e9f3829e5c19a9726236a3d9a05747f533d60006942ba9993be2fb0454fc6"
 };
 
 const SAL = "forja-v1:";
