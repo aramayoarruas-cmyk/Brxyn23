@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORJA · Rutinas de gimnasio a medida</title>
+  <meta name="description" content="Crea gratis tu rutina de gimnasio personalizada según tu objetivo, nivel, días disponibles y material.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="contenedor nav-inner">
+      <a href="#" class="logo">FORJA<span>.</span></a>
+      <nav>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#generador" class="btn btn-pequeno">Crear mi rutina</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="contenedor hero-inner">
+      <p class="etiqueta">Entrenamiento personalizado</p>
+      <h1>Tu rutina de gimnasio,<br><span class="acento">hecha a tu medida.</span></h1>
+      <p class="hero-texto">Responde 5 preguntas y recibe al instante un plan semanal adaptado a tu objetivo, tu nivel, tu tiempo y el material que tienes.</p>
+      <div class="hero-botones">
+        <a href="#generador" class="btn">Empezar ahora, es gratis</a>
+        <a href="#como-funciona" class="btn btn-secundario">Ver cómo funciona</a>
+      </div>
+      <ul class="hero-datos">
+        <li><strong>4</strong> objetivos</li>
+        <li><strong>3</strong> niveles</li>
+        <li><strong>+90</strong> ejercicios</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="seccion">
+    <div class="contenedor">
+      <h2>Cómo funciona</h2>
+      <div class="pasos">
+        <article class="paso">
+          <span class="paso-num">01</span>
+          <h3>Cuéntanos sobre ti</h3>
+          <p>Tu objetivo, tu experiencia, cuántos días puedes entrenar y dónde lo harás.</p>
+        </article>
+        <article class="paso">
+          <span class="paso-num">02</span>
+          <h3>Generamos tu plan</h3>
+          <p>Elegimos la mejor división semanal, los ejercicios, las series, las repeticiones y los descansos.</p>
+        </article>
+        <article class="paso">
+          <span class="paso-num">03</span>
+          <h3>Entrena y progresa</h3>
+          <p>Imprime o guarda tu rutina y sigue los consejos de progresión semana a semana.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="generador" class="seccion seccion-oscura">
+    <div class="contenedor">
+      <h2>Crea tu rutina</h2>
+      <p class="subtitulo">Tarda menos de un minuto.</p>
+
+      <form id="formulario" class="formulario">
+        <div class="campo campo-ancho">
+          <label for="nombre">Tu nombre <span class="opcional">(opcional)</span></label>
+          <input type="text" id="nombre" placeholder="Ej.: Laura" maxlength="40">
+        </div>
+
+        <fieldset class="campo campo-ancho">
+          <legend>1. ¿Cuál es tu objetivo?</legend>
+          <div class="opciones">
+            <label class="opcion"><input type="radio" name="objetivo" value="musculo" checked><span>💪 Ganar músculo</span></label>
+            <label class="opcion"><input type="radio" name="objetivo" value="grasa"><span>🔥 Perder grasa</span></label>
+            <label class="opcion"><input type="radio" name="objetivo" value="fuerza"><span>🏋️ Ganar fuerza</span></label>
+            <label class="opcion"><input type="radio" name="objetivo" value="salud"><span>❤️ Salud y forma</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="campo campo-ancho">
+          <legend>2. ¿Cuál es tu nivel?</legend>
+          <div class="opciones">
+            <label class="opcion"><input type="radio" name="nivel" value="principiante" checked><span>Principiante<small>Menos de 6 meses</small></span></label>
+            <label class="opcion"><input type="radio" name="nivel" value="intermedio"><span>Intermedio<small>6 meses a 2 años</small></span></label>
+            <label class="opcion"><input type="radio" name="nivel" value="avanzado"><span>Avanzado<small>Más de 2 años</small></span></label>
+          </div>
+        </fieldset>
+
+        <div class="campo">
+          <label for="dias">3. Días por semana</label>
+          <select id="dias">
+            <option value="2">2 días</option>
+            <option value="3" selected>3 días</option>
+            <option value="4">4 días</option>
+            <option value="5">5 días</option>
+            <option value="6">6 días</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="duracion">4. Tiempo por sesión</label>
+          <select id="duracion">
+            <option value="30">30 minutos</option>
+            <option value="45">45 minutos</option>
+            <option value="60" selected>60 minutos</option>
+            <option value="75">75 minutos o más</option>
+          </select>
+        </div>
+
+        <div class="campo campo-ancho">
+          <label for="material">5. ¿Dónde vas a entrenar?</label>
+          <select id="material">
+            <option value="gimnasio">Gimnasio completo (máquinas, barras y mancuernas)</option>
+            <option value="mancuernas">En casa con mancuernas</option>
+            <option value="corporal">Sin material (peso corporal)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-grande campo-ancho">Generar mi rutina</button>
+      </form>
+
+      <div id="resultado" class="resultado" hidden></div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      <h2>Por qué FORJA</h2>
+      <div class="ventajas">
+        <div class="ventaja"><h3>Basado en principios reales</h3><p>Series, repeticiones y descansos ajustados según tu objetivo, como haría un entrenador.</p></div>
+        <div class="ventaja"><h3>Se adapta a tu vida</h3><p>De 2 a 6 días, de 30 a 75 minutos. En el gimnasio o en tu salón.</p></div>
+        <div class="ventaja"><h3>Gratis y sin registro</h3><p>Sin cuentas ni datos personales. Generas tu rutina y te la llevas.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p class="logo">FORJA<span>.</span></p>
+      <p>Las rutinas son orientativas. Si tienes alguna lesión o condición médica, consulta con un profesional antes de empezar.</p>
+      <p class="pie-copy">© 2026 FORJA</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
