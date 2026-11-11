@@ -9,8 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- Oculta la web hasta que se introduzca una clave (ver acceso.js) -->
+  <script>document.documentElement.classList.add("bloqueado");</script>
 </head>
 <body>
+
+  <div id="acceso" class="acceso">
+    <form id="form-acceso" class="acceso-caja">
+      <p class="logo">FORJA<span>.</span></p>
+      <h1>Acceso</h1>
+      <p class="acceso-texto">Introduce tu clave de acceso para entrar.</p>
+      <label for="clave" class="solo-lector">Clave de acceso</label>
+      <input type="password" id="clave" placeholder="Clave de acceso" autocomplete="current-password" required>
+      <label class="acceso-recordar"><input type="checkbox" id="recordar" checked> Recordarme en este dispositivo</label>
+      <button type="submit" class="btn btn-grande">Entrar</button>
+      <p id="acceso-error" class="acceso-error" role="alert"></p>
+    </form>
+  </div>
 
   <header class="nav">
     <div class="contenedor nav-inner">
@@ -18,7 +33,9 @@
       <nav>
         <a href="#escanear">Escanear tabla</a>
         <a href="#mis-rutinas">Mis rutinas</a>
+        <a href="#panel" class="enlace-panel" data-solo-propietario hidden>Panel</a>
         <a href="#generador" class="btn btn-pequeno">Crear mi rutina</a>
+        <button type="button" id="salir" class="btn-salir" title="Cerrar sesión">Salir</button>
       </nav>
     </div>
   </header>
@@ -202,6 +219,49 @@
     </div>
   </section>
 
+  <section id="panel" class="seccion seccion-panel" data-solo-propietario hidden>
+    <div class="contenedor">
+      <p class="etiqueta">Solo para ti</p>
+      <h2>Panel de propietario</h2>
+      <p class="subtitulo-claro">Esta sección solo aparece cuando entras con tu clave de propietario.</p>
+
+      <div class="claves" id="panel-datos"></div>
+
+      <div class="panel-rejilla">
+        <div class="panel-caja">
+          <h3>Ejercicios más usados</h3>
+          <ol id="panel-top" class="panel-top"></ol>
+        </div>
+
+        <div class="panel-caja">
+          <h3>Copia de seguridad</h3>
+          <p>Descarga todas las rutinas guardadas en este dispositivo o cárgalas en otro.</p>
+          <div class="panel-botones">
+            <button type="button" id="exportar" class="btn btn-pequeno">Descargar copia</button>
+            <label class="btn btn-claro btn-pequeno">Cargar copia<input type="file" id="importar" accept="application/json,.json" hidden></label>
+            <button type="button" id="borrar-todo" class="btn-texto">Borrar todas</button>
+          </div>
+        </div>
+
+        <div class="panel-caja panel-ancha">
+          <h3>Cambiar las claves de acceso</h3>
+          <p>Escribe la nueva clave y pulsa “Crear código”. Después copia la línea que aparece y pégala en el archivo <code>acceso.js</code> de tu repositorio, en lugar de la línea que empieza igual.</p>
+          <div class="panel-clave">
+            <select id="nueva-clave-rol" aria-label="Para quién es la clave">
+              <option value="propietario">Clave de propietario (tú)</option>
+              <option value="usuario">Clave de usuarios</option>
+            </select>
+            <input type="text" id="nueva-clave" placeholder="Nueva clave (mínimo 10 caracteres)" autocomplete="off">
+            <button type="button" id="crear-codigo" class="btn btn-pequeno">Crear código</button>
+          </div>
+          <pre id="codigo-clave" class="codigo-clave" hidden></pre>
+        </div>
+      </div>
+
+      <p class="panel-nota">ℹ️ Como la web no tiene servidor, cada persona guarda sus rutinas en su propio móvil u ordenador. Aquí ves solo las de este dispositivo; las de tus usuarios no llegan a ningún sitio.</p>
+    </div>
+  </section>
+
   <section class="seccion">
     <div class="contenedor">
       <h2>Por qué FORJA</h2>
@@ -227,5 +287,6 @@
   <script src="rutinas.js"></script>
   <script src="app.js"></script>
   <script src="escaner.js"></script>
+  <script src="acceso.js"></script>
 </body>
 </html>

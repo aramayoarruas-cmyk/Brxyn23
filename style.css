@@ -286,6 +286,77 @@ code { background: #ecebe7; padding: 2px 7px; border-radius: 6px; font-size: .9e
   .editor-fila:not(.editor-fila-cabecera) { padding-bottom: 10px; border-bottom: 1px solid #e4e2dd; margin-bottom: 10px; }
 }
 
+/* ===== Pantalla de acceso ===== */
+html.bloqueado body > *:not(#acceso):not(script) { display: none !important; }
+html:not(.bloqueado) #acceso { display: none; }
+.acceso {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+  background: radial-gradient(circle at 80% 15%, rgba(255, 90, 31, .35), transparent 45%), var(--oscuro);
+  color: #fff;
+}
+.acceso-caja {
+  width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 14px;
+  background: var(--oscuro-2); border: 1px solid var(--borde-oscuro); border-radius: 20px; padding: 34px;
+}
+.acceso-caja .logo { font-size: 1.6rem; }
+.acceso-caja h1 { font-size: 2rem; line-height: 1.1; }
+.acceso-texto { color: #a0a0aa; margin-top: -6px; }
+.acceso-caja input[type="password"] {
+  background: var(--oscuro); color: #fff; border: 1px solid var(--borde-oscuro); border-radius: 10px;
+  padding: 14px; font-size: 1rem; font-family: inherit; width: 100%;
+}
+.acceso-caja input[type="password"]:focus { outline: 2px solid var(--acento); border-color: transparent; }
+.acceso-recordar { display: flex; align-items: center; gap: 8px; color: #c8c8d0; font-size: .92rem; cursor: pointer; }
+.acceso-recordar input { width: 18px; height: 18px; accent-color: var(--acento); }
+.acceso-error { color: #ff8a65; min-height: 1.4em; font-size: .92rem; }
+.solo-lector { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.temblar { animation: temblar .35s; }
+@keyframes temblar { 25% { transform: translateX(-8px); } 50% { transform: translateX(8px); } 75% { transform: translateX(-4px); } }
+@media (prefers-reduced-motion: reduce) { .temblar { animation: none; } }
+
+.btn-salir {
+  background: none; border: 1px solid #ffffff33; color: #ccc; border-radius: 999px;
+  padding: 7px 14px; font-family: inherit; font-size: .85rem; font-weight: 600; cursor: pointer;
+}
+.btn-salir:hover { color: #fff; border-color: #fff; }
+.nav nav a.enlace-panel { color: var(--acento); font-weight: 700; }
+
+/* ===== Panel de propietario ===== */
+.seccion-panel { background: #fff4ee; border-top: 4px solid var(--acento); }
+.seccion-panel .clave { background: var(--superficie); border-color: #f1d9cf; color: var(--texto); }
+.seccion-panel .clave span { color: var(--texto-suave); }
+.seccion-panel .clave strong { font-family: "Archivo Black", sans-serif; font-size: 1.8rem; }
+.panel-rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.panel-caja { background: var(--superficie); border-radius: var(--radio); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.panel-caja p { color: var(--texto-suave); }
+.panel-ancha { grid-column: 1 / -1; }
+.panel-botones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 6px; }
+.panel-top { padding-left: 22px; }
+.panel-top li { padding: 6px 0; border-bottom: 1px solid #eee; }
+.panel-top li span { display: inline-block; width: calc(100% - 40px); }
+.panel-top li strong { float: right; color: var(--acento); }
+.panel-vacio { color: var(--texto-suave); list-style: none; margin-left: -22px; }
+.panel-clave { display: grid; grid-template-columns: 220px 1fr auto; gap: 10px; }
+.panel-clave select, .panel-clave input {
+  padding: 10px 12px; font-size: 1rem; font-family: inherit; border: 1px solid #d6d4cf; border-radius: 8px; min-width: 0;
+  background: #fff; color: var(--texto);
+}
+.codigo-clave {
+  background: var(--oscuro); color: #ffb08f; padding: 14px 16px; border-radius: 10px;
+  font-size: .85rem; overflow-x: auto; user-select: all;
+}
+.panel-nota { margin-top: 22px; color: var(--texto-suave); font-size: .92rem; }
+@media (max-width: 800px) {
+  .panel-rejilla, .panel-clave { grid-template-columns: 1fr; }
+  .nav nav { gap: 12px; }
+  .nav nav a.enlace-panel:not([hidden]) { display: inline; }
+}
+@media (max-width: 400px) {
+  .nav .logo { font-size: 1.25rem; }
+  .nav .btn-pequeno { padding: 8px 12px; font-size: .85rem; white-space: nowrap; }
+  body[data-rol="propietario"] .nav .btn-pequeno { display: none; }
+}
+
 /* ===== Impresión: solo el contenido de #impresion ===== */
 #impresion { display: none; }
 @media print {

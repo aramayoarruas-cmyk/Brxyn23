@@ -90,12 +90,14 @@ const ORIGEN = { generada: "Generada con FORJA", escaneada: "📷 Escaneada de p
 function pintarLista() {
   const rutinas = leerRutinas();
   if (!rutinas.length) {
+    if (window.pintarPanel) window.pintarPanel();
     listaRutinas.innerHTML = `<div class="vacio">
       <p>Aún no tienes rutinas guardadas.</p>
       <p><a href="#generador">Genera una</a> o <a href="#escanear">escanea tu tabla de papel</a>.</p>
     </div>`;
     return;
   }
+  if (window.pintarPanel) window.pintarPanel();
   listaRutinas.innerHTML = rutinas.map(r => {
     const total = r.dias.reduce((s, d) => s + d.ejercicios.length, 0);
     return `<article class="tarjeta-rutina">
@@ -310,3 +312,4 @@ document.getElementById("guardar-editor").addEventListener("click", () => {
 });
 
 pintarLista();
+
