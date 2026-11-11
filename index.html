@@ -16,7 +16,8 @@
     <div class="contenedor nav-inner">
       <a href="#" class="logo">FORJA<span>.</span></a>
       <nav>
-        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#escanear">Escanear tabla</a>
+        <a href="#mis-rutinas">Mis rutinas</a>
         <a href="#generador" class="btn btn-pequeno">Crear mi rutina</a>
       </nav>
     </div>
@@ -29,7 +30,7 @@
       <p class="hero-texto">Responde 5 preguntas y recibe al instante un plan semanal adaptado a tu objetivo, tu nivel, tu tiempo y el material que tienes.</p>
       <div class="hero-botones">
         <a href="#generador" class="btn">Empezar ahora, es gratis</a>
-        <a href="#como-funciona" class="btn btn-secundario">Ver cómo funciona</a>
+        <a href="#escanear" class="btn btn-secundario">📷 Ya tengo mi tabla en papel</a>
       </div>
       <ul class="hero-datos">
         <li><strong>4</strong> objetivos</li>
@@ -129,13 +130,85 @@
     </div>
   </section>
 
+  <section id="escanear" class="seccion">
+    <div class="contenedor">
+      <p class="etiqueta">Nuevo</p>
+      <h2>¿Ya tienes tu tabla en papel?</h2>
+      <p class="subtitulo-claro">Hazle una foto y la pasamos a digital. Después podrás corregirla, guardarla, marcar los ejercicios que vas haciendo e imprimirla cuando quieras.</p>
+
+      <div class="escaner">
+        <div class="escaner-subida">
+          <label class="zona-foto" id="zona-foto">
+            <input type="file" id="foto" accept="image/*" aria-label="Elegir o hacer una foto de tu tabla">
+            <img id="foto-previa" alt="Vista previa de tu tabla" hidden>
+            <span class="zona-foto-texto" id="zona-foto-texto">
+              <strong>📷 Haz una foto o elige una imagen</strong>
+              <small>En el móvil se abrirá la cámara o la galería. También puedes arrastrar la imagen aquí.</small>
+            </span>
+          </label>
+          <button type="button" id="leer-foto" class="btn btn-grande" disabled>Leer mi tabla</button>
+          <div id="progreso" class="progreso" hidden>
+            <div class="progreso-barra"><span id="progreso-relleno"></span></div>
+            <p id="progreso-texto">Preparando…</p>
+          </div>
+          <button type="button" id="crear-manual" class="btn-texto">o escríbela a mano, sin foto →</button>
+        </div>
+
+        <div class="escaner-consejos">
+          <h3>Para que se lea bien</h3>
+          <ul>
+            <li><strong>Un ejercicio por línea</strong>, con sus series y repeticiones.</li>
+            <li><strong>Separa los días</strong> con un título: “Día 1”, “Lunes”, “Pierna:”…</li>
+            <li><strong>Letra clara</strong> (mejor de imprenta), buena luz y la hoja de frente, sin sombras.</li>
+            <li>Siempre podrás <strong>revisar y corregir</strong> el resultado antes de guardarlo.</li>
+          </ul>
+          <div class="escaner-ejemplo">
+            Día 1 – Pecho<br>
+            Press banca 4x10 60kg<br>
+            Aperturas 3x12<br>
+            Fondos 3 series de 8
+          </div>
+        </div>
+      </div>
+
+      <div id="editor" class="editor" hidden>
+        <div class="editor-cabecera">
+          <h3 id="editor-titulo">Revisa tu tabla</h3>
+          <p id="editor-mensaje" class="editor-mensaje" hidden></p>
+        </div>
+        <input type="text" id="editor-nombre" class="editor-nombre" placeholder="Nombre de la rutina (ej.: Mi rutina de volumen)" maxlength="60" aria-label="Nombre de la rutina">
+        <div id="editor-dias" class="editor-dias" style="margin-top:16px"></div>
+        <div class="editor-acciones">
+          <button type="button" id="anadir-dia" class="btn btn-claro btn-pequeno">+ Añadir día</button>
+          <div>
+            <button type="button" id="cancelar-editor" class="btn btn-claro btn-pequeno">Cancelar</button>
+            <button type="button" id="guardar-editor" class="btn btn-pequeno">Guardar en Mis rutinas</button>
+          </div>
+        </div>
+        <details id="texto-detectado" class="texto-detectado" hidden>
+          <summary>Ver el texto que hemos leído de la foto</summary>
+          <pre id="texto-ocr"></pre>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="mis-rutinas" class="seccion seccion-oscura">
+    <div class="contenedor">
+      <h2>Mis rutinas</h2>
+      <p class="subtitulo">Tus rutinas generadas y escaneadas. Se guardan en este dispositivo, sin registrarte.</p>
+      <div id="lista-rutinas" class="lista-rutinas"></div>
+      <div id="vista-rutina" class="resultado" hidden></div>
+    </div>
+  </section>
+
   <section class="seccion">
     <div class="contenedor">
       <h2>Por qué FORJA</h2>
       <div class="ventajas">
         <div class="ventaja"><h3>Basado en principios reales</h3><p>Series, repeticiones y descansos ajustados según tu objetivo, como haría un entrenador.</p></div>
         <div class="ventaja"><h3>Se adapta a tu vida</h3><p>De 2 a 6 días, de 30 a 75 minutos. En el gimnasio o en tu salón.</p></div>
-        <div class="ventaja"><h3>Gratis y sin registro</h3><p>Sin cuentas ni datos personales. Generas tu rutina y te la llevas.</p></div>
+        <div class="ventaja"><h3>Tu tabla de papel, en digital</h3><p>Escanea la rutina que ya tienes y llévala siempre en el móvil, sin perderla ni arrugarla.</p></div>
       </div>
     </div>
   </section>
@@ -148,6 +221,11 @@
     </div>
   </footer>
 
+  <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
+  <div id="impresion"></div>
+
+  <script src="rutinas.js"></script>
   <script src="app.js"></script>
+  <script src="escaner.js"></script>
 </body>
 </html>

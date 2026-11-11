@@ -115,7 +115,7 @@ function generarRutina({ objetivo, nivel, dias, duracion, material }) {
       if (grupo === "core" && lista[i].match(/Plancha|hold|isométrico/i)) reps = "30-45 s";
       const seriesEj = esPrincipal ? series : Math.max(2, series - (objetivo === "fuerza" ? 1 : 0));
 
-      ejercicios.push({ nombre: lista[i], pauta: `${seriesEj} × ${reps}` });
+      ejercicios.push({ nombre: lista[i], series: String(seriesEj), reps, peso: "" });
     }
 
     return { titulo: `Día ${indiceDia + 1}`, enfoque: plantilla.nombre, ejercicios, extra: obj.extra };
@@ -126,11 +126,7 @@ function generarRutina({ objetivo, nivel, dias, duracion, material }) {
 const formulario = document.getElementById("formulario");
 const resultado = document.getElementById("resultado");
 
-function escapar(texto) {
-  const div = document.createElement("div");
-  div.textContent = texto;
-  return div.innerHTML;
-}
+let ultimaGenerada = null;
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -145,6 +141,11 @@ formulario.addEventListener("submit", (e) => {
   const obj = OBJETIVOS[datos.objetivo];
   const rutina = generarRutina(datos);
   const nivelTexto = datos.nivel.charAt(0).toUpperCase() + datos.nivel.slice(1);
+  ultimaGenerada = {
+    nombre: nombre ? `Rutina de ${nombre}` : `${obj.nombre} · ${datos.dias} días`,
+    origen: "generada",
+    dias: rutina
+  };
 
   resultado.innerHTML = `
     <div class="resultado-cabecera">
@@ -153,8 +154,9 @@ formulario.addEventListener("submit", (e) => {
         <p class="resumen">${obj.nombre} · ${nivelTexto} · ${datos.dias} días · ${datos.duracion} min</p>
       </div>
       <div class="acciones">
-        <button class="btn btn-secundario btn-pequeno" onclick="window.print()">Imprimir / PDF</button>
-        <a href="#generador" class="btn btn-pequeno">Cambiar datos</a>
+        <a href="#generador" class="btn btn-secundario btn-pequeno">Cambiar datos</a>
+        <button type="button" class="btn btn-secundario btn-pequeno" data-accion="imprimir">Imprimir / PDF</button>
+        <button type="button" class="btn btn-pequeno" data-accion="guardar">Guardar en Mis rutinas</button>
       </div>
     </div>
 
@@ -165,16 +167,7 @@ formulario.addEventListener("submit", (e) => {
       <div class="clave"><span>Calentamiento</span><strong>5-10 min</strong></div>
     </div>
 
-    <div class="dias">
-      ${rutina.map(dia => `
-        <article class="dia">
-          <div class="dia-titulo"><h4>${dia.titulo}</h4><p>${dia.enfoque}</p></div>
-          <table>
-            ${dia.ejercicios.map(ej => `<tr><td>${ej.nombre}</td><td>${ej.pauta}</td></tr>`).join("")}
-          </table>
-          ${dia.extra ? `<div class="dia-extra">${dia.extra}</div>` : ""}
-        </article>`).join("")}
-    </div>
+    ${htmlDias(ultimaGenerada, false)}
 
     <div class="consejos">
       <h4>Consejos para progresar</h4>
@@ -188,4 +181,17 @@ formulario.addEventListener("submit", (e) => {
   `;
   resultado.hidden = false;
   resultado.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+resultado.addEventListener("click", (e) => {
+  const boton = e.target.closest("button[data-accion]");
+  if (!boton || !ultimaGenerada) return;
+  if (boton.dataset.accion === "imprimir") imprimir(resultado.innerHTML);
+  if (boton.dataset.accion === "guardar") {
+    const id = guardarRutina(ultimaGenerada);
+    if (id) {
+      ultimaGenerada.id = id; // si vuelve a pulsar, se actualiza en vez de duplicarse
+      boton.textContent = "✓ Guardada";
+    }
+  }
 });

@@ -174,13 +174,129 @@ input[type="text"]:focus, select:focus { outline: 2px solid var(--acento); borde
   .seccion { padding: 64px 0; }
 }
 
-/* Impresión: solo la rutina */
+/* ===== Utilidades nuevas ===== */
+.btn-texto {
+  background: none; border: none; color: var(--acento); font-weight: 600;
+  font-family: inherit; font-size: .95rem; cursor: pointer; padding: 6px 0;
+}
+.btn-texto:hover { text-decoration: underline; }
+.btn-claro { background: transparent; color: var(--texto); border-color: #d6d4cf; }
+.btn-claro:hover { background: #ecebe7; border-color: #c4c2bc; }
+.subtitulo-claro { color: var(--texto-suave); max-width: 640px; margin-bottom: 36px; }
+code { background: #ecebe7; padding: 2px 7px; border-radius: 6px; font-size: .9em; }
+
+/* ===== Escáner ===== */
+.escaner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: start; }
+.escaner-subida, .escaner-consejos, .editor {
+  background: var(--superficie); border-radius: 20px; padding: 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.escaner-subida { display: flex; flex-direction: column; gap: 16px; }
+.zona-foto {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; min-height: 230px; padding: 18px; text-align: center; cursor: pointer;
+  border: 2px dashed #d0cec8; border-radius: 16px; background: #faf9f7;
+  transition: border-color .2s, background .2s;
+}
+.zona-foto:hover, .zona-foto.arrastrando { border-color: var(--acento); background: #fff4ee; }
+.zona-foto input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.zona-foto:focus-within { outline: 2px solid var(--acento); outline-offset: 2px; }
+.zona-foto img { max-width: 100%; max-height: 320px; border-radius: 10px; object-fit: contain; }
+.zona-foto-texto { display: flex; flex-direction: column; gap: 4px; }
+.zona-foto-texto small { color: var(--texto-suave); }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.progreso p { color: var(--texto-suave); font-size: .9rem; margin-top: 8px; }
+.progreso-barra { height: 10px; background: #ecebe7; border-radius: 99px; overflow: hidden; }
+.progreso-barra span { display: block; height: 100%; width: 0; background: var(--acento); transition: width .3s; }
+
+.escaner-consejos ul { padding-left: 20px; color: var(--texto-suave); margin-top: 10px; }
+.escaner-consejos li { margin-bottom: 10px; }
+.escaner-ejemplo {
+  margin-top: 16px; padding: 16px 18px; border-radius: 12px; background: #faf9f7;
+  font-family: "Courier New", monospace; font-size: .9rem; line-height: 1.7; color: #333;
+  border-left: 4px solid var(--acento);
+}
+
+/* ===== Editor ===== */
+.editor { margin-top: 28px; }
+.editor-cabecera { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.editor-cabecera h3 { font-family: "Archivo Black", sans-serif; font-size: 1.5rem; }
+.editor-mensaje { padding: 12px 16px; border-radius: 10px; background: #fff4ee; color: #8a3a12; font-size: .95rem; }
+.editor-mensaje.ok { background: #eaf7ee; color: #1e6b3a; }
+.editor input {
+  width: 100%; min-width: 0; padding: 10px 12px; font-size: 1rem; font-family: inherit;
+  border: 1px solid #d6d4cf; border-radius: 8px; background: #fff; color: var(--texto);
+}
+.editor input:focus { outline: 2px solid var(--acento); border-color: transparent; }
+.editor-nombre { font-weight: 700; font-size: 1.1rem !important; }
+.editor-dias { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr)); gap: 18px; }
+.editor-dia { border: 1px solid #e4e2dd; border-radius: 14px; padding: 16px; background: #faf9f7; }
+.editor-dia-cabecera { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+.editor-dia-titulo { font-weight: 700; background: var(--acento) !important; color: #fff !important; border: none !important; }
+.editor-dia-titulo::placeholder { color: #ffe0d2; }
+.editor-fila { display: grid; grid-template-columns: 1fr 58px 72px 72px 32px; gap: 6px; margin-bottom: 6px; align-items: center; }
+.editor-fila-cabecera { font-size: .78rem; color: var(--texto-suave); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.borrar-fila {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: transparent;
+  color: #999; font-size: 1.3rem; cursor: pointer;
+}
+.borrar-fila:hover { background: #f1d9cf; color: #b03a10; }
+.editor-acciones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; margin-top: 22px; }
+.editor-acciones div { display: flex; gap: 10px; flex-wrap: wrap; }
+.texto-detectado { margin-top: 16px; color: var(--texto-suave); font-size: .9rem; }
+.texto-detectado summary { cursor: pointer; font-weight: 600; }
+.texto-detectado pre { margin-top: 10px; padding: 14px; background: #faf9f7; border-radius: 10px; white-space: pre-wrap; font-size: .85rem; }
+
+/* ===== Mis rutinas ===== */
+.lista-rutinas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.tarjeta-rutina {
+  background: var(--oscuro-2); border: 1px solid var(--borde-oscuro); border-radius: var(--radio);
+  padding: 22px; display: flex; flex-direction: column; gap: 6px;
+}
+.tarjeta-rutina h3 { font-size: 1.2rem; overflow-wrap: anywhere; }
+.tarjeta-rutina p { color: #a0a0aa; font-size: .92rem; }
+.tarjeta-rutina .acciones { margin-top: 12px; align-items: center; }
+.insignia { align-self: flex-start; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: #2c2c35; color: #ddd; }
+.insignia-escaneada { background: rgba(255, 90, 31, .18); color: #ff9a72; }
+.vacio { background: var(--oscuro-2); border: 1px dashed var(--borde-oscuro); border-radius: var(--radio); padding: 34px; text-align: center; color: #a0a0aa; }
+.vacio a { color: var(--acento); font-weight: 600; }
+.ayuda { color: #a0a0aa; margin-bottom: 18px; }
+.celda-check { width: 44px; padding-right: 0 !important; }
+.celda-check input { width: 22px; height: 22px; accent-color: var(--acento); cursor: pointer; vertical-align: middle; }
+.dia tr.hecho td:not(.celda-check) { text-decoration: line-through; color: #aaa; }
+.peso { display: block; color: var(--texto-suave); font-size: .82rem; }
+.barra-entreno { height: 8px; background: var(--borde-oscuro); border-radius: 99px; overflow: hidden; margin: 6px 0 22px; }
+.barra-entreno span { display: block; height: 100%; background: var(--acento); transition: width .3s; }
+
+/* ===== Aviso flotante ===== */
+.aviso {
+  position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px);
+  background: #16161a; color: #fff; padding: 14px 22px; border-radius: 12px; z-index: 50;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3); transition: transform .3s; max-width: calc(100% - 32px);
+}
+.aviso.visible { transform: translate(-50%, 0); }
+
+@media (max-width: 800px) {
+  .escaner { grid-template-columns: 1fr; }
+  .escaner-subida, .escaner-consejos, .editor { padding: 20px; }
+  .editor-fila { grid-template-columns: 1fr 1fr 1fr 32px; }
+  .editor-fila input[data-campo="nombre"] { grid-column: 1 / -1; }
+  .editor-fila-cabecera { display: none; }
+  .editor-fila:not(.editor-fila-cabecera) { padding-bottom: 10px; border-bottom: 1px solid #e4e2dd; margin-bottom: 10px; }
+}
+
+/* ===== Impresión: solo el contenido de #impresion ===== */
+#impresion { display: none; }
 @media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { background: #fff; }
-  .nav, .hero, .seccion:not(#generador), .pie, #generador > .contenedor > h2,
-  .subtitulo, .formulario, .acciones { display: none !important; }
-  .seccion-oscura { background: #fff; color: #000; padding: 0; }
-  .clave, .consejos { background: #fff; border-color: #ccc; color: #000; }
-  .consejos ul, .resumen { color: #333; }
-  .dia { border: 1px solid #ccc; break-inside: avoid; }
+  body > *:not(#impresion) { display: none !important; }
+  #impresion { display: block; color: #000; }
+  #impresion h1 { font-size: 1.6rem; margin-bottom: 14px; }
+  #impresion .acciones, #impresion .celda-check, #impresion .ayuda, #impresion .barra-entreno { display: none !important; }
+  #impresion .clave, #impresion .consejos { background: #fff; border-color: #ccc; color: #000; }
+  #impresion .consejos ul, #impresion .resumen, #impresion .clave span { color: #333; }
+  #impresion .dias { grid-template-columns: 1fr 1fr; }
+  #impresion .dia { border: 1px solid #ccc; break-inside: avoid; }
 }
